@@ -13,7 +13,7 @@ const syncUserCreation = inngest.createFunction(
     
     return await step.run("create-user-in-db", async () => {
       try {
-        // Check if user already exists (prevent duplicates)
+        // Check if user already exists
         const existingUserById = await User.findById(id);
         if (existingUserById) {
           console.log(`User already exists: ${id}`);
