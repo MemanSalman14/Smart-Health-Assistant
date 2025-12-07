@@ -34,5 +34,8 @@ app.use(
 app.use("/api/inngest", serve({ client: inngest, functions }));
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/message", messageRouter);
+app.get("/", (req, res) => {
+    res.send("API Working")
+})
 
 export default app;
