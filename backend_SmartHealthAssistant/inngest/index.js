@@ -20,23 +20,13 @@ const syncUserCreation = inngest.createFunction(
           return { success: true, userId: id, message: "User already exists" };
         }
 
-        let username = email_addresses[0].email_address.split("@")[0];
-
-        // Check availability of username
-        const existingUser = await User.findOne({ username });
-
-        if (existingUser) {
-          username = username + Math.floor(Math.random() * 10000);
-        }
-
         const userData = {
           _id: id,
           email: email_addresses[0].email_address,
-          fullName: `${first_name || ''} ${last_name || ''}`.trim() || username,
+          fullName: `${first_name || ''} ${last_name || ''}`.trim() || email_addresses[0].email_address.split("@")[0],
           avatar: {
             url: image_url || 'https://avatar.iran.liara.run/public',
           },
-          username,
         };
 
         const newUser = await User.create(userData);
@@ -78,13 +68,11 @@ const syncUserUpdation = inngest.createFunction(
         if (!updatedUser) {
           console.warn(`User not found with id: ${id}. Creating new user.`);
           // If user doesn't exist, create it (fallback for webhook order issues)
-          const username = email_addresses[0].email_address.split("@")[0];
           const newUser = await User.create({
             _id: id,
             email: email_addresses[0].email_address,
-            fullName: `${first_name || ''} ${last_name || ''}`.trim(),
+            fullName: `${first_name || ''} ${last_name || ''}`.trim() || email_addresses[0].email_address.split("@")[0],
             avatar: { url: image_url || 'https://avatar.iran.liara.run/public' },
-            username,
           });
           return { success: true, userId: newUser._id, message: "User created during update" };
         }
