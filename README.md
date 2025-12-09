@@ -1,11 +1,18 @@
 # 🏥 Smart Health Assistant
 
-A full-stack real-time health chat application built with the MERN stack, featuring AI-powered health assistance, real-time messaging, and secure JWT authentication.
+<div align="center">
 
 ![Smart Health Assistant](https://img.shields.io/badge/version-1.0.0-blue.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Node](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)
 ![MongoDB](https://img.shields.io/badge/database-MongoDB-green.svg)
+
+**A full-stack real-time health chat application built with the MERN stack, featuring AI-powered health assistance, real-time messaging, and secure JWT authentication.**
+
+[🚀 Live Demo](https://smart-health-assistant-one.vercel.app) • [✨ Features](#-features) • [🚀 Installation](#-installation) • [📚 API Docs](#-api-documentation) • [☁️ Deployment](#-deployment)
+
+</div>
+
+---
 
 ## 📋 Table of Contents
 
@@ -17,9 +24,9 @@ A full-stack real-time health chat application built with the MERN stack, featur
 - [Environment Variables](#-environment-variables)
 - [Running the Application](#-running-the-application)
 - [API Documentation](#-api-documentation)
-- [Screenshots](#-screenshots)
-- [Contributing](#-contributing)
-- [License](#-license)
+- [Deployment](#-deployment)
+- [Known Issues](#-known-issues)
+
 
 ## ✨ Features
 
@@ -38,9 +45,7 @@ A full-stack real-time health chat application built with the MERN stack, featur
 
 ### AI Health Assistant
 - 🤖 AI-powered health chatbot
-- 💡 Intelligent health recommendations
-- 🩺 Symptom analysis and guidance
-- 📊 Health tips and wellness advice
+
 
 ### User Experience
 - 📱 Fully responsive design
@@ -78,7 +83,7 @@ A full-stack real-time health chat application built with the MERN stack, featur
 ## 📁 Project Structure
 
 ```
-Deploy_SmartHealthAssistant/
+
 ├── frontend_SmartHealthAssistant/
 │   ├── public/
 │   │   └── avatar-holder.avif
@@ -253,7 +258,7 @@ npm run preview
 
 - **Frontend:** http://localhost:5173
 - **Backend API:** http://localhost:4000
-- **API Health Check:** http://localhost:4000/
+
 
 ## 📚 API Documentation
 
@@ -327,87 +332,47 @@ Authorization: Bearer <token>
 | `getOnlineUsers` | Get list of online user IDs |
 | `newMessage` | Receive new message notification |
 
-## 📸 Screenshots
 
-### Login Page
-Modern and clean login interface with form validation.
+## ☁️ Deployment
 
-### Chat Interface
-Real-time messaging with online status indicators.
+### Deploy to Vercel
 
-### AI Health Chatbot
-Intelligent health assistant providing medical guidance.
+#### Backend Deployment
 
-### Profile Page
-User profile management with avatar upload.
+1. Push code to GitHub
+2. Import project in [Vercel](https://vercel.com/)
+3. Set root directory to `backend_SmartHealthAssistant`
+4. Add environment variables in Vercel dashboard
+5. Deploy!
 
-## 🤝 Contributing
+#### Frontend Deployment
 
-Contributions are welcome! Please follow these steps:
+1. Update API URL in `frontend_SmartHealthAssistant/src/lib/axios.js`
+2. Update the socket URL in `frontend_SmartHealthAssistant/src/lib/socket.js`
+3. Import project in [Vercel](https://vercel.com/)
+3. Set root directory to `frontend_SmartHealthAssistant`
+4. Add environment variables: ``` VITE_N8N_URL=your_n8n_webhook_url ```
+5. Deploy!
 
-1. **Fork the repository**
-2. **Create a feature branch**
-   ```bash
-   git checkout -b feature/AmazingFeature
-   ```
-3. **Commit your changes**
-   ```bash
-   git commit -m 'Add some AmazingFeature'
-   ```
-4. **Push to the branch**
-   ```bash
-   git push origin feature/AmazingFeature
-   ```
-5. **Open a Pull Request**
+#### Post-Deployment Steps
 
-### Code Style Guidelines
+1. Update `FRONTEND_URI` in backend environment variables with the deployed frontend URL
+2. Test all functionality:
+   - ✅ User registration and login
+   - ✅ Real-time messaging
+   - ✅ File uploads
+   - ✅ AI chatbot
+   - ✅ Online status indicators
 
-- Use ES6+ syntax
-- Follow React best practices
-- Use meaningful variable and function names
-- Add comments for complex logic
-- Write clean, readable code
 
 ## 🐛 Known Issues
 
 - Large file uploads may take longer on slower connections
 - Mobile keyboard may overlap chat input on some devices
+- Socket.IO connections may require WebSocket fallback on some hosting platforms
 
-## 📝 Future Enhancements
 
-- [ ] Group chat functionality
-- [ ] Voice and video calling
-- [ ] Message reactions and emojis
-- [ ] Message search functionality
-- [ ] Push notifications
-- [ ] Dark mode theme
-- [ ] Multi-language support
 
-## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👨‍💻 Author
 
-**Your Name**
-- GitHub: [@yourusername](https://github.com/yourusername)
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/yourprofile)
-- Email: your.email@example.com
-
-## 🙏 Acknowledgments
-
-- [React Documentation](https://react.dev/)
-- [Express.js Documentation](https://expressjs.com/)
-- [Socket.IO Documentation](https://socket.io/docs/)
-- [MongoDB Documentation](https://www.mongodb.com/docs/)
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
-
----
-
-<p align="center">
-  Made with ❤️ for better health communication
-</p>
-
-<p align="center">
-  ⭐ Star this repository if you find it helpful!
-</p>
