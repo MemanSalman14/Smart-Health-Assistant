@@ -6,8 +6,6 @@ import cors from "cors";
 import { dbConnection } from "./database/db.js";
 import userRouter from "./routes/userRoute.js";
 import messageRouter from "./routes/messageRoute.js";
-import {inngest, functions} from "./inngest/index.js";
-import { serve } from "inngest/express";
 
 const app = express();
 
@@ -31,11 +29,6 @@ app.use(
   })
 );
 
-app.use("/api/inngest", serve({ client: inngest, functions }));
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/message", messageRouter);
-app.get("/", (req, res) => {
-    res.send("API Working")
-})
-
 export default app;

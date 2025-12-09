@@ -1,9 +1,10 @@
+
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 import { Loader } from "lucide-react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { setOnlineUsers } from "./store/slices/authSlice";
+import { getUser, setOnlineUsers } from "./store/slices/authSlice";
 import { connectSocket, disconnectSocket } from "./lib/socket";
 import {
   BrowserRouter as Router,
@@ -12,36 +13,39 @@ import {
   Navigate,
 } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
-import Profile from "./pages/Profile";
+import Register from "./pages/Register";
 import Login from "./pages/Login";
-import Register from "./pages/Register"; 
+import Home from "./pages/Home";
+import Profile from "./pages/Profile"
 import { ToastContainer } from "react-toastify";
 import ChatbotButton from "./components/ChatBot/ChatbotButton";
-import { SignedIn, SignedOut, RedirectToSignIn, useUser } from "@clerk/clerk-react";
+
 
 const App = () => {
-  const { user, isLoaded } = useUser();
+  const { authUser, isCheckingAuth } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (user) {
-      const socket = connectSocket(user.id);
+    dispatch(getUser());
+  }, [getUser]);
+
+  useEffect(() => {
+    if (authUser) {
+      const socket = connectSocket(authUser._id);
       socket.on("getOnlineUsers", (users) => {
         dispatch(setOnlineUsers(users));
       });
       return () => disconnectSocket();
     }
-  }, [user, dispatch]);
+  }, [authUser]);
 
-  if (!isLoaded) {
+  if (isCheckingAuth && !authUser) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <Loader className="size-10 animate-spin" />
+        <Loader className="size-10 animate-spin"></Loader>
       </div>
     );
   }
-
   return (
     <>
       <Router>
@@ -49,51 +53,24 @@ const App = () => {
         <Routes>
           <Route
             path="/"
-            element={
-              <SignedIn>
-                <Home />
-              </SignedIn>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <SignedIn>
-                <Profile />
-              </SignedIn>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <SignedOut>
-                <Login />
-              </SignedOut>
-            }
+            element={authUser ? <Home /> : <Navigate to={"/login"} />}
           />
           <Route
             path="/register"
-            element={
-              <SignedOut>
-                <Register /> 
-              </SignedOut>
-            }
+            element={!authUser ? <Register /> : <Navigate to={"/"} />}
           />
-          {/* Redirect all other routes to sign in if not authenticated */}
           <Route
-            path="*"
-            element={
-              <SignedOut>
-                <RedirectToSignIn />
-              </SignedOut>
-            }
+            path="/login"
+            element={!authUser ? <Login /> : <Navigate to={"/"} />}
+          />
+          <Route
+            path="/profile"
+            element={authUser ? <Profile /> : <Navigate to={"/login"} />}
           />
         </Routes>
         <ToastContainer />
-        {/* Show ChatbotButton only when signed in */}
-        <SignedIn>
-          <ChatbotButton />
-        </SignedIn>
+        {/* Add ChatbotButton only when user is authenticated */}
+        {authUser && <ChatbotButton />}
       </Router>
     </>
   );
