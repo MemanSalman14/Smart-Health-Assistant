@@ -8,7 +8,7 @@
 
 **A full-stack real-time health chat application built with the MERN stack, featuring AI-powered health assistance, real-time messaging, and secure JWT authentication.**
 
-[🚀 Live Demo](https://smart-health-assistant-one.vercel.app) • [✨ Features](#-features) • [🚀 Installation](#-installation) • [📚 API Docs](#-api-documentation) • [☁️ Deployment](#-deployment)
+[🚀 Live Demo](https://smart-health-assistant-one.vercel.app) 
 
 </div>
 
